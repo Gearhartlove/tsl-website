@@ -14,5 +14,5 @@ fun main(args: Array<String>) {
     }
         .get("/") { ctx -> ctx.result("Hello World") }
         .get("/foo") { ctx -> ctx.result("bar") }
-        .start(7070)
+        .start(443)
 }
