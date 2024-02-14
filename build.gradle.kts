@@ -7,6 +7,7 @@ plugins {
 
 group = "org.example"
 version = "1.0-SNAPSHOT"
+build = "1.0.1"
 
 repositories {
     mavenCentral()
@@ -14,6 +15,7 @@ repositories {
 
 dependencies {
     implementation("io.javalin:javalin:6.0.0")
+    implementation("io.javalin.community.ssl:ssl-plugin:6.0.0")
     implementation("org.slf4j:slf4j-simple:2.0.11")
 }
 
