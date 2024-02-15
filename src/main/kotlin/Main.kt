@@ -1,12 +1,17 @@
 import io.javalin.Javalin
 import io.javalin.community.ssl.SslPlugin
 import java.io.File
+import org.commonmark.parser.Parser as MarkdownParser
+import org.commonmark.renderer.html.HtmlRenderer as MarkdownHtmlRenderer
 
 fun inDebugMode(): Boolean {
     return System.getenv("DEBUG") == "true"
 }
 
-fun main(args: Array<String>) {
+fun main() {
+    val mdParser = MarkdownParser.builder().build()
+    val mdHtmlRenderer = MarkdownHtmlRenderer.builder().build()
+    val blogger = Blogger()
     val _app = Javalin.create { javalinConfig ->
         if (!inDebugMode()) {
             val sslPlugin = SslPlugin { conf ->
@@ -19,9 +24,22 @@ fun main(args: Array<String>) {
         }
     }
         .get("/") { ctx ->
-            val landingPage = File("src/main/resources/foo.html")
-            ctx.html(landingPage.readText())
+            val index = File("src/main/resources/index/index.html")
+            ctx.html(index.readText())
         }
-        .get("/foo") { ctx -> ctx.result("bar") }
+        .get("/blog") { ctx ->
+            val blog = File("src/main/resources/blog/blog.html")
+            ctx.html(blog.readText())
+        }
+        .get("/blogger/{id}") { ctx ->
+            val id = ctx.pathParam("id")
+            val raw = blogger.get(id)
+            val parsed = mdParser.parse(raw)
+            val rendered = mdHtmlRenderer.render(parsed)
+            ctx.html(rendered)
+        }
+        .get("/styles.css") { ctx ->
+            ctx.uploadedFile("src/main/resources/blog/templates/styles.css")
+        }
         .start(443)
 }

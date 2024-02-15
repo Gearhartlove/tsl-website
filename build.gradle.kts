@@ -16,6 +16,7 @@ dependencies {
     implementation("io.javalin:javalin:6.0.0")
     implementation("io.javalin.community.ssl:ssl-plugin:6.0.0")
     implementation("org.slf4j:slf4j-simple:2.0.11")
+    implementation("org.commonmark:commonmark:0.21.0")
 }
 
 tasks.test {

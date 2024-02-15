@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .parent {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: 0.5fr repeat(5, 1fr);
+            grid-column-gap: 0px;
+            grid-row-gap: 0px;
+        }
+
+        .div1 { grid-area: 1 / 1 / 2 / 6; }
+        .div2 { grid-area: 2 / 1 / 7 / 6; }
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 5%;
+        }
+        .column-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5%;
+        }
+        .c {
+          padding: 0 .7em;
+          max-width: 40em;
+          margin: auto;
+        }
+        .zola-anchor {
+            opacity: 40%;
+        }
+        .zola-anchor:hover {
+            opacity: 95%;
+        }
+        .blog {
+            max-width: 40em;
+            margin: 0 auto !important;
+            float: none !important;
+        }
+        a {
+            color: blue;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="parent">
+    <div id="nav" class="div1">
+        <div class="container" style="padding:3%;">
+            <a href="/">Home</a>
+            <a href="/blog">Blog</a>
+        </div>
+    </div>
+    <div id="main" class="div2 blog">
+        <div class="column-container">
+            <h3 id="website">
+                <a class="zola-anchor" href="#website" aria-label="Anchor link for: website">#</a>
+                Website
+            </h3>
+            <ul>
+                <li>
+                    <div hx-boost="true" hx-target="#main" hx-swap="innerHTML" hx-replace-url="false">
+                        <a href="/blogger/creating-my-website-from-chicken-scratch">Creating my website from chicken scratch</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
