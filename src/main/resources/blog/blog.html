@@ -6,16 +6,6 @@
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <link rel="stylesheet" href="styles.css">
     <style>
-        .parent {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            grid-template-rows: 0.5fr repeat(5, 1fr);
-            grid-column-gap: 0px;
-            grid-row-gap: 0px;
-        }
-
-        .div1 { grid-area: 1 / 1 / 2 / 6; }
-        .div2 { grid-area: 2 / 1 / 7 / 6; }
         .container {
             display: flex;
             flex-direction: row;
@@ -50,17 +40,18 @@
             color: blue;
             text-decoration: none;
         }
+        img {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
 <div class="parent">
-    <div id="nav" class="div1">
-        <div class="container" style="padding:3%;">
-            <a href="/">Home</a>
-            <a href="/blog">Blog</a>
-        </div>
+    <div id="nav" class="container" style="padding:3%;">
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
     </div>
-    <div id="main" class="div2 blog">
+    <div id="main" class="blog">
         <div class="column-container">
             <h3 id="website">
                 <a class="zola-anchor" href="#website" aria-label="Anchor link for: website">#</a>

@@ -1,5 +1,6 @@
 import io.javalin.Javalin
 import io.javalin.community.ssl.SslPlugin
+import io.javalin.http.ContentType
 import java.io.File
 import org.commonmark.parser.Parser as MarkdownParser
 import org.commonmark.renderer.html.HtmlRenderer as MarkdownHtmlRenderer
@@ -30,6 +31,17 @@ fun main() {
         .get("/blog") { ctx ->
             val blog = File("src/main/resources/blog/blog.html")
             ctx.html(blog.readText())
+        }
+        .get("/blog-entry-assets/{asset}") { ctx ->
+            val assetName = ctx.pathParam("asset")
+            try {
+                val asset = File("src/main/resources/blog/entries/blog-entry-assets/$assetName").readBytes()
+                ctx.contentType(ContentType.IMAGE_JPEG)
+                ctx.result(asset)
+            } catch(e: Exception) {
+                ctx.status(404).result("Picture not found $assetName")
+            }
+
         }
         .get("/blogger/{id}") { ctx ->
             val id = ctx.pathParam("id")
