@@ -51,7 +51,9 @@ fun main() {
             ctx.html(rendered)
         }
         .get("/styles.css") { ctx ->
-            ctx.uploadedFile("src/main/resources/blog/templates/styles.css")
+            val styling = File("src/main/resources/styles.css").readText()
+            ctx.contentType(ContentType.TEXT_CSS)
+            ctx.result(styling)
         }
         .start(443)
 }

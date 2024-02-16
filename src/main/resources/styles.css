@@ -1,0 +1,37 @@
+.container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 5%;
+}
+.column-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+}
+.c {
+  padding: 0 .7em;
+  max-width: 40em;
+  margin: auto;
+}
+.zola-anchor {
+    opacity: 40%;
+}
+.zola-anchor:hover {
+    opacity: 95%;
+}
+.blog {
+    max-width: 40em;
+    margin: 0 auto !important;
+    float: none !important;
+}
+a {
+    color: blue;
+    text-decoration: none;
+}
+img {
+    width: 100%;
+}
