@@ -10,9 +10,9 @@ fun inDebugMode(): Boolean {
     return System.getenv("DEBUG") == "true"
 }
 
-const val INDEX_PATH = "src/main/resources/index/index.html"
 const val STYLES_PATH = "src/main/resources/styles.css"
 const val ASSETS_PATH = "src/main/resources/assets"
+const val TEMPLATE_PATH = "src/main/resources/templates"
 
 
 fun main() {
@@ -21,7 +21,7 @@ fun main() {
     val mf = DefaultMustacheFactory()
 
     val blogger = Blogger(mf, mdParser, mdHtmlRenderer)
-    val index = Index()
+    val index = Index(mf)
 
     val app = Javalin.create { javalinConfig ->
         if (!inDebugMode()) {

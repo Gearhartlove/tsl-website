@@ -1,9 +1,8 @@
 import com.github.mustachejava.DefaultMustacheFactory
-import com.github.mustachejava.Mustache
 import io.javalin.Javalin
 import io.javalin.http.ContentType
+import mustache.MustacheUtil
 import java.io.File
-import java.io.PrintWriter
 import org.commonmark.parser.Parser as MarkdownParser
 import org.commonmark.renderer.html.HtmlRenderer as MarkdownHtmlRenderer
 
@@ -13,7 +12,6 @@ class Blogger(
     mdHtmlRenderer: MarkdownHtmlRenderer,
 ) : Register {
     companion object {
-        val TEMPLATE_PATH = "src/main/resources/templates"
         val BLOG_PLACEHOLDERS_PATH = "src/main/resources/blog/placeholders"
         val BLOG_ENTRIES_PATH = "src/main/resources/blog/entries"
         val BLOG_RENDERS_PATH = "src/main/resources/blog/renders"
@@ -21,35 +19,25 @@ class Blogger(
 
     // init entry navigation
     init {
-        val content = File("$BLOG_PLACEHOLDERS_PATH/entries.html").readText()
-        val scopes = mapOf("content" to content)
-
-        val destination = File("$BLOG_RENDERS_PATH/entries.html")
-        val printWriter = PrintWriter(destination)
-        val template = File("$TEMPLATE_PATH/navMain.mustache")
-        val mustache: Mustache = mf.compile(template.bufferedReader(), "blogger/entries")
-        mustache.execute(printWriter, scopes)
-        printWriter.close()
-
-        println(destination.readText())
+        val placeholder = File("$BLOG_PLACEHOLDERS_PATH/entries.html").readText()
+        val scopes = mapOf("content" to placeholder)
+        val renderPath = "$BLOG_RENDERS_PATH/entries.html"
+        val templatePath = "$TEMPLATE_PATH/navMain.mustache"
+        val name = "blogger/entries"
+        MustacheUtil.render(scopes, renderPath, templatePath, mf, name)
     }
 
     // init each entries
     init {
-        val name = "creating-my-website-from-chicken-scratch"
-        val file = File("${BLOG_ENTRIES_PATH}/$name.md")
+        val blog = "creating-my-website-from-chicken-scratch"
+        val file = File("${BLOG_ENTRIES_PATH}/$blog.md")
         val parsed = mdParser.parse(file.readText())
         val rendered = mdHtmlRenderer.render(parsed)
         val scopes = mapOf("content" to rendered)
-
-        val destination = File("$BLOG_RENDERS_PATH/$name.html")
-        val printWriter = PrintWriter(destination)
-        val template = File("${TEMPLATE_PATH}/navMain.mustache")
-        val mustache: Mustache = mf.compile(template.bufferedReader(), "blogger/entries/$name")
-        mustache.execute(printWriter, scopes)
-        printWriter.close()
-
-        print(destination.readText())
+        val renderPath = "$BLOG_RENDERS_PATH/$blog.html"
+        val templatePath = "${TEMPLATE_PATH}/navMain.mustache"
+        val name = "blogger/entries/$blog"
+        MustacheUtil.render(scopes, renderPath, templatePath, mf, name)
     }
 
     fun entries(): String {
