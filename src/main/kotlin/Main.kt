@@ -21,6 +21,7 @@ fun main() {
     val mf = DefaultMustacheFactory()
 
     val blogger = Blogger(mf, mdParser, mdHtmlRenderer)
+
     val app = Javalin.create { javalinConfig ->
         if (!inDebugMode()) {
             val sslPlugin = SslPlugin { conf ->
