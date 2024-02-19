@@ -1,3 +1,4 @@
+import com.github.mustachejava.DefaultMustacheFactory
 import io.javalin.Javalin
 import io.javalin.community.ssl.SslPlugin
 import io.javalin.http.ContentType
@@ -12,7 +13,9 @@ fun inDebugMode(): Boolean {
 fun main() {
     val mdParser = MarkdownParser.builder().build()
     val mdHtmlRenderer = MarkdownHtmlRenderer.builder().build()
-    val blogger = Blogger()
+    val mf = DefaultMustacheFactory()
+
+    val blogger = Blogger(mf, mdParser, mdHtmlRenderer)
     val _app = Javalin.create { javalinConfig ->
         if (!inDebugMode()) {
             val sslPlugin = SslPlugin { conf ->
@@ -28,9 +31,8 @@ fun main() {
             val index = File("src/main/resources/index/index.html")
             ctx.html(index.readText())
         }
-        .get("/blog") { ctx ->
-            val blog = File("src/main/resources/blog/blog.html")
-            ctx.html(blog.readText())
+        .get("/blogger") { ctx ->
+            ctx.html(blogger.entries())
         }
         .get("/blog-entry-assets/{asset}") { ctx ->
             val assetName = ctx.pathParam("asset")
@@ -41,14 +43,11 @@ fun main() {
             } catch(e: Exception) {
                 ctx.status(404).result("Picture not found $assetName")
             }
-
         }
         .get("/blogger/{id}") { ctx ->
             val id = ctx.pathParam("id")
-            val raw = blogger.get(id)
-            val parsed = mdParser.parse(raw)
-            val rendered = mdHtmlRenderer.render(parsed)
-            ctx.html(rendered)
+            val html = blogger.get(id)
+            ctx.html(html)
         }
         .get("/styles.css") { ctx ->
             val styling = File("src/main/resources/styles.css").readText()

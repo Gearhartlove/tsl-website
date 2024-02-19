@@ -1,12 +1,11 @@
+import com.github.mustachejava.DefaultMustacheFactory
 import java.io.File
-import org.commonmark.parser.Parser as MarkdownParser
-import org.commonmark.renderer.html.HtmlRenderer as MarkdownHtmlRenderer
+import java.io.PrintWriter
 
-val parser = MarkdownParser.builder().build()
-val renderer = MarkdownHtmlRenderer.builder().build()
+val scopes = mapOf("content" to "Hello World!")
 
-val file = File("/Users/anchorage/kotlin/website/src/main/resources/blog/entries/creating-my-website-from-chicken-scratch.md").readText()
-
-val html = renderer.render(parser.parse(file))
-
-println(html)
+val pw = PrintWriter(System.out)
+val mf = DefaultMustacheFactory()
+val mustache = mf.compile(File("foobar.txt").bufferedReader(), "example")
+mustache.execute(pw, scopes)
+pw.close()

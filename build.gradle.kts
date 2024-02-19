@@ -18,6 +18,7 @@ dependencies {
     implementation("org.slf4j:slf4j-simple:2.0.11")
     implementation("org.commonmark:commonmark:0.21.0")
     implementation(kotlin("script-runtime"))
+    implementation("com.github.spullara.mustache.java:compiler:0.9.10")
 }
 
 tasks.test {

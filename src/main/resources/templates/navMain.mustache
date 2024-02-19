@@ -5,17 +5,17 @@
     <title>Title</title>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
 <div class="parent">
-    <div class="div1">
-        <div class="container" style="padding:3%;">
-            <a href="/">Home</a>
-            <a href="/blogger">Blog</a>
-        </div>
+    <div id="nav" class="container" style="padding:3%;">
+        <a href="/">Home</a>
+        <a href="/blogger">Blog</a>
     </div>
-    <div class="div2"></div>
+    <div id="main" class="blog">
+        {{{content}}}
+    </div>
 </div>
 </body>
 </html>
