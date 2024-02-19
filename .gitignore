@@ -1,5 +1,3 @@
 build/
 .gradle
 .idea
-src/main/resources/blog/renders/
-src/main/resources/index/renders/
