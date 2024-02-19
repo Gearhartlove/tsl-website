@@ -21,6 +21,7 @@ fun main() {
     val mf = DefaultMustacheFactory()
 
     val blogger = Blogger(mf, mdParser, mdHtmlRenderer)
+    val index = Index()
 
     val app = Javalin.create { javalinConfig ->
         if (!inDebugMode()) {
@@ -35,12 +36,9 @@ fun main() {
     }
 
     blogger.register(app, blogger)
+    index.register(app, index)
 
     app
-        .get("/") { ctx ->
-            val index = File(INDEX_PATH)
-            ctx.html(index.readText())
-        }
         .get("/styles.css") { ctx ->
             val styling = File(STYLES_PATH).readText()
             ctx.contentType(ContentType.TEXT_CSS)
