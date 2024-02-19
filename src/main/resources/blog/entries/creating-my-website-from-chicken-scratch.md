@@ -14,15 +14,15 @@ So I've wanted to create a website for *long, long* time. I didn't want to creat
 ## Poking the Cloud Bear
 "The cloud" is a big term for a lot of different services. In my case I used small yet powerful corner known as a [droplet](https://www.digitalocean.com/products/droplets). These are "machines anyone can set up in seconds", and I really found that to be true. You basically create an account, select the hardware you want to "rent" and then you're off to the races. Here's what mine looks like today (I'm was and am still going through DnD withdraw, so that's why it's named pathfinder 😅)
 
-![My droplet dashboard](blog-entry-assets/droplet.png)
+![My droplet dashboard](../../assets/droplet.png)
 
 Pretty cool right! You can see the name, the ip (which is connected to this website!), how much it cost me, and the domain's I have registered for this droplet! (it costs around $16 a month for the hardware I'm renting, and I can cancel any time which is really nice)
 
 This next part is really boring but important! It's all about connecting your domain name to the ip of your newly created droplet! [This](https://www.digitalocean.com/community/questions/point-a-domain-from-squarespace-com-to-digitalocean-and-install-wordpress) is the digital ocean help I found which added years to my lifespan. The two steps are 
 1. Register square space domain with digital ocean servers
-   ![Square Space Domain Nameservers Registration](blog-entry-assets/digital-ocean-nameservers.png)
+   ![Square Space Domain Nameservers Registration](../../assets/digital-ocean-nameservers.png)
 2. Configure Digital Ocean Networking on Droplet to look something like this
-    ![Digital Ocean Networking Tab](blog-entry-assets/digital-ocean-networking.png)
+    ![Digital Ocean Networking Tab](../../assets/digital-ocean-networking.png)
 
 On top of domains, there is also getting a TSL certificate, which basically means your website is good and not evil! I did this through a cli called [certbot](https://certbot.eff.org/) which uses Let's Encrypt certificates on manually-administered websites to enable HTTPS. I tried a bunch of different options in the cli, and the following worked for me. (this might be a little verbose, but I will include it all to at least help me the next time I need to renew it 😅)
 

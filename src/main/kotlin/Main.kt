@@ -10,13 +10,18 @@ fun inDebugMode(): Boolean {
     return System.getenv("DEBUG") == "true"
 }
 
+const val INDEX_PATH = "src/main/resources/index/index.html"
+const val STYLES_PATH = "src/main/resources/styles.css"
+const val ASSETS_PATH = "src/main/resources/assets"
+
+
 fun main() {
     val mdParser = MarkdownParser.builder().build()
     val mdHtmlRenderer = MarkdownHtmlRenderer.builder().build()
     val mf = DefaultMustacheFactory()
 
     val blogger = Blogger(mf, mdParser, mdHtmlRenderer)
-    val _app = Javalin.create { javalinConfig ->
+    val app = Javalin.create { javalinConfig ->
         if (!inDebugMode()) {
             val sslPlugin = SslPlugin { conf ->
                 conf.pemFromPath(
@@ -27,32 +32,28 @@ fun main() {
             javalinConfig.registerPlugin(sslPlugin)
         }
     }
+
+    blogger.register(app, blogger)
+
+    app
         .get("/") { ctx ->
-            val index = File("src/main/resources/index/index.html")
+            val index = File(INDEX_PATH)
             ctx.html(index.readText())
         }
-        .get("/blogger") { ctx ->
-            ctx.html(blogger.entries())
-        }
-        .get("/blog-entry-assets/{asset}") { ctx ->
-            val assetName = ctx.pathParam("asset")
-            try {
-                val asset = File("src/main/resources/blog/entries/blog-entry-assets/$assetName").readBytes()
-                ctx.contentType(ContentType.IMAGE_JPEG)
-                ctx.result(asset)
-            } catch(e: Exception) {
-                ctx.status(404).result("Picture not found $assetName")
-            }
-        }
-        .get("/blogger/{id}") { ctx ->
-            val id = ctx.pathParam("id")
-            val html = blogger.get(id)
-            ctx.html(html)
-        }
         .get("/styles.css") { ctx ->
-            val styling = File("src/main/resources/styles.css").readText()
+            val styling = File(STYLES_PATH).readText()
             ctx.contentType(ContentType.TEXT_CSS)
             ctx.result(styling)
+        }
+        .get("/assets/{asset}") { ctx ->
+            val asset = ctx.pathParam("asset")
+            try {
+                val asset = File("$ASSETS_PATH/$asset").readBytes()
+                ctx.contentType(ContentType.IMAGE_JPEG)
+                ctx.result(asset)
+            } catch (e: Exception) {
+                ctx.status(404).result("Picture not found $asset")
+            }
         }
         .start(443)
 }
