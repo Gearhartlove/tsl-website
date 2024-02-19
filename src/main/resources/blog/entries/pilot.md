@@ -35,3 +35,5 @@ __This is bold text__
 *This is italic text*
 
 _This is italic text_
+1. Register square space domain with digital ocean servers
+   <img src="../../assets/digital-ocean-nameservers.png" alt="Square Space Domain Nameservers Registration" loading="lazy" width="100" height="100">

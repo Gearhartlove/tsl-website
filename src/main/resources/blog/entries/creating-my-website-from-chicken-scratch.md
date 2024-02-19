@@ -20,7 +20,7 @@ Pretty cool right! You can see the name, the ip (which is connected to this webs
 
 This next part is really boring but important! It's all about connecting your domain name to the ip of your newly created droplet! [This](https://www.digitalocean.com/community/questions/point-a-domain-from-squarespace-com-to-digitalocean-and-install-wordpress) is the digital ocean help I found which added years to my lifespan. The two steps are 
 1. Register square space domain with digital ocean servers
-   ![Square Space Domain Nameservers Registration](../../assets/digital-ocean-nameservers.png)
+   <img src="../../assets/digital-ocean-nameservers.png" alt="Square Space Domain Nameservers Registration">
 2. Configure Digital Ocean Networking on Droplet to look something like this
     ![Digital Ocean Networking Tab](../../assets/digital-ocean-networking.png)
 

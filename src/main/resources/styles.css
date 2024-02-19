@@ -34,4 +34,20 @@ a {
 }
 img {
     width: 100%;
+    border-style:solid;
+    border-color:black;
+    border-width:1px;
+}
+
+pre {
+    overflow: scroll;
+    display: block;
+    width: 100%;
+    border-style:solid;
+    border-color:black;
+    border-width:1px;
+}
+
+.nav {
+    padding: 3%;
 }

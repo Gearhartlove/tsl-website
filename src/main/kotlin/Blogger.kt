@@ -40,6 +40,21 @@ class Blogger(
         MustacheUtil.render(scopes, renderPath, templatePath, mf, name)
     }
 
+    // debug pilot render
+    init {
+        if (inDebugMode()) {
+            val blog = "pilot"
+            val file = File("${BLOG_ENTRIES_PATH}/$blog.md")
+            val parsed = mdParser.parse(file.readText())
+            val rendered = mdHtmlRenderer.render(parsed)
+            val scopes = mapOf("content" to rendered)
+            val renderPath = "$BLOG_RENDERS_PATH/$blog.html"
+            val templatePath = "${TEMPLATE_PATH}/navMain.mustache"
+            val name = "blogger/entries/$blog"
+            MustacheUtil.render(scopes, renderPath, templatePath, mf, name)
+        }
+    }
+
     fun entries(): String {
         val path = "${BLOG_RENDERS_PATH}/entries.html"
         val file = File(path)
