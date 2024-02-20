@@ -1,6 +1,7 @@
 import com.github.mustachejava.DefaultMustacheFactory
 import io.javalin.Javalin
 import io.javalin.http.ContentType
+import io.javalin.http.Context
 import mustache.MustacheUtil
 import java.io.File
 import org.commonmark.parser.Parser as MarkdownParser
@@ -79,32 +80,41 @@ class Blogger(
         return file.readText()
     }
 
-    override fun register(app: Javalin, context: Any) {
-        if (context is Blogger) {
-            app
-                .get("/blogger") { ctx ->
-                    ctx.html(context.entries())
+    override fun registrations(): List<Registration> {
+        return listOf(
+            Registration(
+                HttpOptions.GET,
+                "/blogger"
+            ) { ctx: Context -> ctx.html(entries()) },
+            Registration(
+                HttpOptions.GET,
+                "/blog-entry-assets/{asset}",
+            ) { ctx ->
+                val assetName = ctx.pathParam("asset")
+                try {
+                    val asset = File("src/main/resources/blog/entries/blog-entry-assets/$assetName").readBytes()
+                    ctx.contentType(ContentType.IMAGE_JPEG)
+                    ctx.result(asset)
+                } catch (e: Exception) {
+                    ctx.status(404).result("Picture not found $assetName")
                 }
-                .get("/blog-entry-assets/{asset}") { ctx ->
-                    val assetName = ctx.pathParam("asset")
-                    try {
-                        val asset = File("src/main/resources/blog/entries/blog-entry-assets/$assetName").readBytes()
-                        ctx.contentType(ContentType.IMAGE_JPEG)
-                        ctx.result(asset)
-                    } catch (e: Exception) {
-                        ctx.status(404).result("Picture not found $assetName")
-                    }
-                }
-                .get("/blogger/styles.css") { ctx ->
-                    val styling = java.io.File("src/main/resources/styles.css").readText()
-                    ctx.contentType(io.javalin.http.ContentType.TEXT_CSS)
-                    ctx.result(styling)
-                }
-                .get("/blogger/{id}") { ctx ->
-                    val id = ctx.pathParam("id")
-                    val html = context.get(id)
-                    ctx.html(html)
-                }
-        }
+            },
+            Registration(
+                HttpOptions.GET,
+                "/blogger/styles.css",
+            ) { ctx ->
+                val styling = java.io.File("src/main/resources/styles.css").readText()
+                ctx.contentType(io.javalin.http.ContentType.TEXT_CSS)
+                ctx.result(styling)
+            },
+            Registration(
+                HttpOptions.GET,
+                "/blogger/{id}",
+            ) { ctx ->
+                val id = ctx.pathParam("id")
+                val html = get(id)
+                ctx.html(html)
+            }
+        )
     }
 }

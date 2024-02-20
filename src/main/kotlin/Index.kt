@@ -19,11 +19,15 @@ class Index(mf: MustacheFactory) : Register {
         MustacheUtil.render(scopes, renderPath, templatePath, mf, name)
     }
 
-    override fun register(app: Javalin, context: Any) {
-        app
-            .get("/") { ctx ->
+    override fun registrations(): List<Registration> {
+        return listOf(
+            Registration(
+                HttpOptions.GET,
+                "/",
+            ) { ctx ->
                 ctx.html(File("${INDEX_RENDER_PATH}/index.html").readText())
             }
+        )
     }
 
 }

@@ -1,8 +1,6 @@
 import com.github.mustachejava.DefaultMustacheFactory
 import io.javalin.Javalin
 import io.javalin.community.ssl.SslPlugin
-import io.javalin.http.ContentType
-import java.io.File
 import org.commonmark.parser.Parser as MarkdownParser
 import org.commonmark.renderer.html.HtmlRenderer as MarkdownHtmlRenderer
 
@@ -14,12 +12,12 @@ const val STYLES_PATH = "src/main/resources/styles.css"
 const val ASSETS_PATH = "src/main/resources/assets"
 const val TEMPLATE_PATH = "src/main/resources/templates"
 
-
 fun main() {
     val mdParser = MarkdownParser.builder().build()
     val mdHtmlRenderer = MarkdownHtmlRenderer.builder().build()
     val mf = DefaultMustacheFactory()
 
+    val core = Core()
     val blogger = Blogger(mf, mdParser, mdHtmlRenderer)
     val index = Index(mf)
 
@@ -34,25 +32,8 @@ fun main() {
             javalinConfig.registerPlugin(sslPlugin)
         }
     }
-
-    blogger.register(app, blogger)
-    index.register(app, index)
-
-    app
-        .get("/styles.css") { ctx ->
-            val styling = File(STYLES_PATH).readText()
-            ctx.contentType(ContentType.TEXT_CSS)
-            ctx.result(styling)
-        }
-        .get("/assets/{asset}") { ctx ->
-            val asset = ctx.pathParam("asset")
-            try {
-                val asset = File("$ASSETS_PATH/$asset").readBytes()
-                ctx.contentType(ContentType.IMAGE_JPEG)
-                ctx.result(asset)
-            } catch (e: Exception) {
-                ctx.status(404).result("Picture not found $asset")
-            }
-        }
+        .register(core)
+        .register(index)
+        .register(blogger)
         .start(443)
 }
