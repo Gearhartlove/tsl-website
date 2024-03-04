@@ -1,5 +1,4 @@
 import io.javalin.Javalin
-import io.javalin.apibuilder.ApiBuilder
 import io.javalin.http.Context
 
 enum class HttpOptions {

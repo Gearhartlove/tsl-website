@@ -1,5 +1,4 @@
 import com.github.mustachejava.DefaultMustacheFactory
-import io.javalin.Javalin
 import io.javalin.http.ContentType
 import io.javalin.http.Context
 import mustache.MustacheUtil
@@ -52,6 +51,19 @@ class Blogger(
         val name = "blogger/entries/$blog"
         MustacheUtil.render(scopes, renderPath, templatePath, mf, name)
     }
+
+    init {
+        val blog = "backenders-spellbook-my-response-to-your-request"
+        val file = File("${BLOG_ENTRIES_PATH}/$blog.md")
+        val parsed = mdParser.parse(file.readText())
+        val rendered = mdHtmlRenderer.render(parsed)
+        val scopes = mapOf("content" to rendered)
+        val renderPath = "$BLOG_RENDERS_PATH/$blog.html"
+        val templatePath = "${TEMPLATE_PATH}/navMain.mustache"
+        val name = "blogger/entries/$blog"
+        MustacheUtil.render(scopes, renderPath, templatePath, mf, name)
+    }
+
 
     // debug pilot render
     init {

@@ -1,5 +1,4 @@
 import com.github.mustachejava.MustacheFactory
-import io.javalin.Javalin
 import mustache.MustacheUtil
 import java.io.File
 
