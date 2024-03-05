@@ -17,67 +17,25 @@ class Blogger(
         val BLOG_RENDERS_PATH = "src/main/resources/blog/renders"
     }
 
-    // init entry navigation
     init {
-        val placeholder = File("$BLOG_PLACEHOLDERS_PATH/entries.html").readText()
-        val scopes = mapOf("content" to placeholder)
-        val renderPath = "$BLOG_RENDERS_PATH/entries.html"
-        val templatePath = "$TEMPLATE_PATH/navMain.mustache"
-        val name = "blogger/entries"
-        MustacheUtil.render(scopes, renderPath, templatePath, mf, name)
-    }
+        blog("creating-my-website-from-chicken-scratch", mdParser, mdHtmlRenderer, mf)
+        blog("im-trapped-in-my-html-how-do-i-escape", mdParser, mdHtmlRenderer, mf)
+        blog("backenders-spellbook-my-response-to-your-request", mdParser, mdHtmlRenderer, mf)
 
-    // init each entries
-    init {
-        val blog = "creating-my-website-from-chicken-scratch"
-        val file = File("${BLOG_ENTRIES_PATH}/$blog.md")
-        val parsed = mdParser.parse(file.readText())
-        val rendered = mdHtmlRenderer.render(parsed)
-        val scopes = mapOf("content" to rendered)
-        val renderPath = "$BLOG_RENDERS_PATH/$blog.html"
-        val templatePath = "${TEMPLATE_PATH}/navMain.mustache"
-        val name = "blogger/entries/$blog"
-        MustacheUtil.render(scopes, renderPath, templatePath, mf, name)
-    }
-
-    init {
-        val blog = "im-trapped-in-my-html-how-do-i-escape"
-        val file = File("${BLOG_ENTRIES_PATH}/$blog.md")
-        val parsed = mdParser.parse(file.readText())
-        val rendered = mdHtmlRenderer.render(parsed)
-        val scopes = mapOf("content" to rendered)
-        val renderPath = "$BLOG_RENDERS_PATH/$blog.html"
-        val templatePath = "${TEMPLATE_PATH}/navMain.mustache"
-        val name = "blogger/entries/$blog"
-        MustacheUtil.render(scopes, renderPath, templatePath, mf, name)
-    }
-
-    init {
-        val blog = "backenders-spellbook-my-response-to-your-request"
-        val file = File("${BLOG_ENTRIES_PATH}/$blog.md")
-        val parsed = mdParser.parse(file.readText())
-        val rendered = mdHtmlRenderer.render(parsed)
-        val scopes = mapOf("content" to rendered)
-        val renderPath = "$BLOG_RENDERS_PATH/$blog.html"
-        val templatePath = "${TEMPLATE_PATH}/navMain.mustache"
-        val name = "blogger/entries/$blog"
-        MustacheUtil.render(scopes, renderPath, templatePath, mf, name)
-    }
-
-
-    // debug pilot render
-    init {
         if (inDebugMode()) {
-            val blog = "pilot"
-            val file = File("${BLOG_ENTRIES_PATH}/$blog.md")
-            val parsed = mdParser.parse(file.readText())
-            val rendered = mdHtmlRenderer.render(parsed)
-            val scopes = mapOf("content" to rendered)
-            val renderPath = "$BLOG_RENDERS_PATH/$blog.html"
-            val templatePath = "${TEMPLATE_PATH}/navMain.mustache"
-            val name = "blogger/entries/$blog"
-            MustacheUtil.render(scopes, renderPath, templatePath, mf, name)
+            blog("pilot", mdParser, mdHtmlRenderer, mf)
         }
+    }
+
+    fun blog(blog: String, mdParser: MarkdownParser, mdHtmlRenderer: MarkdownHtmlRenderer, mustacheFactory: DefaultMustacheFactory): Unit {
+        val file = File("${BLOG_ENTRIES_PATH}/$blog.md")
+        val parsed = mdParser.parse(file.readText())
+        val rendered = mdHtmlRenderer.render(parsed)
+        val scopes = mapOf("content" to rendered)
+        val renderPath = "$BLOG_RENDERS_PATH/$blog.html"
+        val templatePath = "${TEMPLATE_PATH}/navMain.mustache"
+        val name = "blogger/entries/$blog"
+        MustacheUtil.render(scopes, renderPath, templatePath, mustacheFactory, name)
     }
 
     fun entries(): String {
