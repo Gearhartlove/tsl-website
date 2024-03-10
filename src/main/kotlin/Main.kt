@@ -2,6 +2,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.github.mustachejava.DefaultMustacheFactory
 import io.javalin.Javalin
 import io.javalin.community.ssl.SslPlugin
+import phonebook.Phonebook
 import org.commonmark.parser.Parser as MarkdownParser
 import org.commonmark.renderer.html.HtmlRenderer as MarkdownHtmlRenderer
 
@@ -22,7 +23,7 @@ fun main() {
     val core = Core()
     val blogger = Blogger(mf, mdParser, mdHtmlRenderer)
     val index = Index(mf)
-    val dwarvernPhoneBook = DwarvenPhoneBook(mapper)
+    val phonebook = Phonebook()
 
     val app = Javalin.create { javalinConfig ->
         if (!inDebugMode()) {
@@ -38,6 +39,6 @@ fun main() {
         .register(core)
         .register(index)
         .register(blogger)
-        .register(dwarvernPhoneBook)
+        .register(phonebook)
         .start(443)
 }
