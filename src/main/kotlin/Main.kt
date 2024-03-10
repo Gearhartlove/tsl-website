@@ -1,3 +1,4 @@
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.github.mustachejava.DefaultMustacheFactory
 import io.javalin.Javalin
 import io.javalin.community.ssl.SslPlugin
@@ -15,11 +16,13 @@ const val TEMPLATE_PATH = "src/main/resources/templates"
 fun main() {
     val mdParser = MarkdownParser.builder().build()
     val mdHtmlRenderer = MarkdownHtmlRenderer.builder().build()
+    val mapper = jacksonObjectMapper {}
     val mf = DefaultMustacheFactory()
 
     val core = Core()
     val blogger = Blogger(mf, mdParser, mdHtmlRenderer)
     val index = Index(mf)
+    val dwarvernPhoneBook = DwarvenPhoneBook(mapper)
 
     val app = Javalin.create { javalinConfig ->
         if (!inDebugMode()) {
@@ -35,5 +38,6 @@ fun main() {
         .register(core)
         .register(index)
         .register(blogger)
+        .register(dwarvernPhoneBook)
         .start(443)
 }

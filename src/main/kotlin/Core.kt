@@ -28,4 +28,8 @@ class Core:  Register{
             }
         )
     }
+
+    override fun name(): String {
+        return "Core"
+    }
 }

@@ -29,4 +29,8 @@ class Index(mf: MustacheFactory) : Register {
         )
     }
 
+    override fun name(): String {
+        return "Index"
+    }
+
 }

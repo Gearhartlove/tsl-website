@@ -87,4 +87,8 @@ class Blogger(
             }
         )
     }
+
+    override fun name(): String {
+        return "Blogger"
+    }
 }

@@ -21,10 +21,13 @@ data class Registration(
 
 interface Register {
     fun registrations(): List<Registration>
+    fun name(): String
 }
 
 fun Javalin.register(theRegister: Register): Javalin {
+    println("Registering register [${theRegister.name()}]")
     theRegister.registrations().forEach { registration ->
+        println("- $registration.path")
         register(registration)
     }
 
