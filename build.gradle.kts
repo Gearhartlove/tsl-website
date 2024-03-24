@@ -13,6 +13,7 @@ repositories {
 }
 
 dependencies {
+    implementation(files("/Users/gearhart/Documents/Github/firebird/build/libs/firebird-1.0.jar"))
     implementation("io.javalin:javalin:6.0.0")
     implementation("io.javalin.community.ssl:ssl-plugin:6.0.0")
     implementation("org.slf4j:slf4j-simple:2.0.11")
@@ -28,7 +29,12 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "11"
+}
+
+tasks.withType<JavaCompile> {
+    sourceCompatibility = "11"
+    targetCompatibility = "11"
 }
 
 application {

@@ -2,9 +2,11 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.github.mustachejava.DefaultMustacheFactory
 import io.javalin.Javalin
 import io.javalin.community.ssl.SslPlugin
+import linting.json.JsonLinter
 import phonebook.Phonebook
 import org.commonmark.parser.Parser as MarkdownParser
 import org.commonmark.renderer.html.HtmlRenderer as MarkdownHtmlRenderer
+import org.tsl.firebird.firebird
 
 fun inDebugMode(): Boolean {
     return System.getenv("DEBUG") == "true"
@@ -24,6 +26,7 @@ fun main() {
     val blogger = Blogger(mf, mdParser, mdHtmlRenderer)
     val index = Index(mf)
     val phonebook = Phonebook()
+    val jsonLinter = JsonLinter()
 
     val app = Javalin.create { javalinConfig ->
         if (!inDebugMode()) {
@@ -40,5 +43,6 @@ fun main() {
         .register(index)
         .register(blogger)
         .register(phonebook)
+        .register(jsonLinter)
         .start(443)
 }
