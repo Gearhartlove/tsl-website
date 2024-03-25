@@ -6,7 +6,6 @@ import linting.json.JsonLinter
 import phonebook.Phonebook
 import org.commonmark.parser.Parser as MarkdownParser
 import org.commonmark.renderer.html.HtmlRenderer as MarkdownHtmlRenderer
-import org.tsl.firebird.firebird
 
 fun inDebugMode(): Boolean {
     return System.getenv("DEBUG") == "true"
