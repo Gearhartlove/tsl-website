@@ -9,9 +9,9 @@ class JsonLinter : Register {
         return listOf(
             Registration(
                 HttpOptions.GET,
-                "/linting/json/debug"
+                "/linting/json/{source}"
             ) { context ->
-                val source = """{"foo":"bar"}"""
+                val source = context.pathParam("source")
                 val jsonObject = firebird.fromString(source)
                 context.json(jsonObject)
             }
