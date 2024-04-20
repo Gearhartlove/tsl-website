@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation(files("/Users/gearhart/Documents/Github/firebird/build/libs/firebird-1.0.jar"))
+    implementation(files("custom/firebird-1.0.jar"))
     implementation("io.javalin:javalin:6.0.0")
     implementation("io.javalin.community.ssl:ssl-plugin:6.0.0")
     implementation("org.slf4j:slf4j-simple:2.0.11")
@@ -34,4 +34,28 @@ kotlin {
 
 application {
     mainClass.set("MainKt")
+}
+
+tasks.register<JavaExec>("runLocal") {
+    group = "tsl"
+    description = "run the project on my local machine, not in the vm"
+
+    mainClass.set("MainKt")
+    classpath = sourceSets["main"].runtimeClasspath
+    environment(
+        Pair("DEBUG", "true"),
+        Pair("PORT", 1025)
+    )
+}
+
+tasks.register<JavaExec>("runServer") {
+    group = "tsl"
+    description = "run the project on the vm on the server, not on my local machine"
+
+    mainClass.set("MainKt")
+    classpath = sourceSets["main"].runtimeClasspath
+    environment(
+        Pair("DEBUG", "false"),
+        Pair("PORT", 443)
+    )
 }

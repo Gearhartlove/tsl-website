@@ -11,6 +11,10 @@ fun inDebugMode(): Boolean {
     return System.getenv("DEBUG") == "true"
 }
 
+fun getPort(): Int {
+    return System.getenv("PORT").toInt()
+}
+
 const val STYLES_PATH = "src/main/resources/styles.css"
 const val ASSETS_PATH = "src/main/resources/assets"
 const val TEMPLATE_PATH = "src/main/resources/templates"
@@ -43,5 +47,5 @@ fun main() {
         .register(blogger)
         .register(phonebook)
         .register(jsonLinter)
-        .start(443)
+        .start(getPort())
 }
