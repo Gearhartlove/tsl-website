@@ -1,5 +1,6 @@
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.github.mustachejava.DefaultMustacheFactory
+import page.index.Index
 import io.javalin.Javalin
 import io.javalin.community.ssl.SslPlugin
 import io.javalin.http.staticfiles.Location

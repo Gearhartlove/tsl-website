@@ -21,7 +21,7 @@ dependencies {
     implementation(kotlin("script-runtime"))
     implementation("com.github.spullara.mustache.java:compiler:0.9.10")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.0-rc1")
-    implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.8.0")
 }
 
 tasks.test {
