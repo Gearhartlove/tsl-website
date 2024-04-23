@@ -5,5 +5,5 @@ pluginManagement {
     }
     
 }
-rootProject.name = "website"
+rootProject.name = "tsl-website"
 
