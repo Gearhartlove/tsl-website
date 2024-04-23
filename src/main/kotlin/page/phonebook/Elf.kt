@@ -1,8 +1,5 @@
-package phonebook.ancestries
+package page.phonebook
 
-import phonebook.Entity
-import phonebook.Listings
-import phonebook.Phonebook
 import kotlin.random.Random
 
 object Elf : Listings {

@@ -1,12 +1,10 @@
-package phonebook
+package page.phonebook
 
-import Register
-import Registration
+import core.HttpOptions
+import core.Register
+import core.Registration
 import kotlinx.html.*
 import kotlinx.html.stream.createHTML
-import phonebook.ancestries.Dwarf
-import phonebook.ancestries.Elf
-import phonebook.ancestries.Goblin
 
 class Phonebook : Register {
     companion object {

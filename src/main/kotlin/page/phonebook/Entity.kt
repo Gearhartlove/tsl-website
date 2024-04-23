@@ -1,4 +1,4 @@
-package phonebook
+package page.phonebook
 
 class Entity(
     val first: String,

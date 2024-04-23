@@ -1,4 +1,11 @@
+package page.blog
+
+import core.HttpOptions
+import core.Register
+import core.Registration
+import Main.TEMPLATE_PATH
 import com.github.mustachejava.DefaultMustacheFactory
+import Main.inDebugMode
 import io.javalin.http.ContentType
 import io.javalin.http.Context
 import mustache.MustacheUtil
@@ -28,24 +35,24 @@ class Blogger(
     }
 
     fun blog(blog: String, mdParser: MarkdownParser, mdHtmlRenderer: MarkdownHtmlRenderer, mustacheFactory: DefaultMustacheFactory): Unit {
-        val file = File("${BLOG_ENTRIES_PATH}/$blog.md")
+        val file = File("$BLOG_ENTRIES_PATH/$blog.md")
         val parsed = mdParser.parse(file.readText())
         val rendered = mdHtmlRenderer.render(parsed)
         val scopes = mapOf("content" to rendered)
         val renderPath = "$BLOG_RENDERS_PATH/$blog.html"
-        val templatePath = "${TEMPLATE_PATH}/navMain.mustache"
+        val templatePath = "$TEMPLATE_PATH/navMain.mustache"
         val name = "blogger/entries/$blog"
         MustacheUtil.render(scopes, renderPath, templatePath, mustacheFactory, name)
     }
 
     fun entries(): String {
-        val path = "${BLOG_RENDERS_PATH}/entries.html"
+        val path = "$BLOG_RENDERS_PATH/entries.html"
         val file = File(path)
         return file.readText()
     }
 
     fun get(id: String): String {
-        val path = "${BLOG_RENDERS_PATH}/$id.html"
+        val path = "$BLOG_RENDERS_PATH/$id.html"
         val file = File(path)
         return file.readText()
     }
@@ -73,8 +80,8 @@ class Blogger(
                 HttpOptions.GET,
                 "/blogger/styles.css",
             ) { ctx ->
-                val styling = java.io.File("src/main/resources/styles.css").readText()
-                ctx.contentType(io.javalin.http.ContentType.TEXT_CSS)
+                val styling = File("src/main/resources/styles.css").readText()
+                ctx.contentType(ContentType.TEXT_CSS)
                 ctx.result(styling)
             },
             Registration(
@@ -89,6 +96,6 @@ class Blogger(
     }
 
     override fun name(): String {
-        return "Blogger"
+        return "page.blog.Blogger"
     }
 }

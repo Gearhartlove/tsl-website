@@ -1,8 +1,8 @@
 package page.index
 
-import HttpOptions
-import Register
-import Registration
+import core.HttpOptions
+import core.Register
+import core.Registration
 import com.github.mustachejava.MustacheFactory
 
 class Index(mf: MustacheFactory) : Register {

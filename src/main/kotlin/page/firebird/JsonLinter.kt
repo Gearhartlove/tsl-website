@@ -1,6 +1,7 @@
-package linting.json
-import Register
-import Registration
+package page.firebird
+import core.HttpOptions
+import core.Register
+import core.Registration
 import org.tsl.firebird.Firebird
 
 class JsonLinter : Register {
