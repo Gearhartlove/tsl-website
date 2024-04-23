@@ -1,0 +1,15 @@
+### GET request with a header
+GET https://examples.http-client.intellij.net/ip
+Accept: application/json
+
+### Test parsing
+< {%
+  request.variables.set("json", encodeURI("{\"foo\":\"bar\"}"))
+ %}
+GET https://twoshotslater.com/linting/json/{{json}}
+Accept: application/json
+
+### Simple GET
+GET https://twoshotslater.com/linting/json/debug
+Accept: application/json
+

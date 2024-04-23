@@ -2,6 +2,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.github.mustachejava.DefaultMustacheFactory
 import io.javalin.Javalin
 import io.javalin.community.ssl.SslPlugin
+import io.javalin.http.staticfiles.Location
 import linting.json.JsonLinter
 import phonebook.Phonebook
 import org.commonmark.parser.Parser as MarkdownParser
@@ -30,6 +31,7 @@ fun main() {
     val index = Index(mf)
     val phonebook = Phonebook()
     val jsonLinter = JsonLinter()
+    val resume = Resume()
 
     val app = Javalin.create { javalinConfig ->
         if (!inDebugMode()) {
@@ -40,6 +42,8 @@ fun main() {
                 )
             }
             javalinConfig.registerPlugin(sslPlugin)
+
+            javalinConfig.staticFiles.add("/main/assets", Location.CLASSPATH)
         }
     }
         .register(core)
@@ -47,5 +51,6 @@ fun main() {
         .register(blogger)
         .register(phonebook)
         .register(jsonLinter)
+        .register(resume)
         .start(getPort())
 }
