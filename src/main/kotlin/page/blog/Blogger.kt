@@ -1,5 +1,6 @@
 package page.blog
 
+import Main
 import core.HttpOptions
 import core.Register
 import core.Registration
@@ -19,7 +20,6 @@ class Blogger(
     mdHtmlRenderer: MarkdownHtmlRenderer,
 ) : Register {
     companion object {
-        val BLOG_PLACEHOLDERS_PATH = "src/main/resources/blog/placeholders"
         val BLOG_ENTRIES_PATH = "src/main/resources/blog/entries"
         val BLOG_RENDERS_PATH = "src/main/resources/blog/renders"
     }
@@ -27,7 +27,7 @@ class Blogger(
     init {
         blog("creating-my-website-from-chicken-scratch", mdParser, mdHtmlRenderer, mf)
         blog("im-trapped-in-my-html-how-do-i-escape", mdParser, mdHtmlRenderer, mf)
-        blog("backenders-spellbook-my-response-to-your-request", mdParser, mdHtmlRenderer, mf)
+        blog("back  enders-spellbook-my-response-to-your-request", mdParser, mdHtmlRenderer, mf)
 
         if (inDebugMode()) {
             blog("pilot", mdParser, mdHtmlRenderer, mf)
@@ -35,8 +35,7 @@ class Blogger(
     }
 
     fun blog(blog: String, mdParser: MarkdownParser, mdHtmlRenderer: MarkdownHtmlRenderer, mustacheFactory: DefaultMustacheFactory): Unit {
-        val file = File("$BLOG_ENTRIES_PATH/$blog.md")
-        val parsed = mdParser.parse(file.readText())
+        val parsed = mdParser.parse(Main::class.java.getResource("blog/entries/$blog.md").readText())
         val rendered = mdHtmlRenderer.render(parsed)
         val scopes = mapOf("content" to rendered)
         val renderPath = "$BLOG_RENDERS_PATH/$blog.html"
