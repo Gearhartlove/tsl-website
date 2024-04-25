@@ -1,4 +1,5 @@
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import core.Core
 import core.register
 import page.index.Index
 import io.javalin.Javalin

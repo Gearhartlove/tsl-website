@@ -1,6 +1,6 @@
-import core.HttpOptions
-import core.Register
-import core.Registration
+package core
+
+import Main
 import io.javalin.http.ContentType
 import java.io.File
 
@@ -33,6 +33,6 @@ class Core: Register {
     }
 
     override fun name(): String {
-        return "Core"
+        return "core.Core"
     }
 }
