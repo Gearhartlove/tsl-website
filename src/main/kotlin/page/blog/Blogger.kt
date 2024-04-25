@@ -7,6 +7,7 @@ import io.javalin.http.ContentType
 import io.javalin.http.Context
 import page.WrapperV1
 import java.io.File
+import kotlin.reflect.jvm.jvmName
 import org.commonmark.parser.Parser as MarkdownParser
 import org.commonmark.renderer.html.HtmlRenderer as MarkdownHtmlRenderer
 
@@ -64,6 +65,6 @@ class Blogger(
     }
 
     override fun name(): String {
-        return "page.blog.Blogger"
+        return Blogger::class.jvmName
     }
 }

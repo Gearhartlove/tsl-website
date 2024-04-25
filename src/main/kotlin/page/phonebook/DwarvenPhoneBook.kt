@@ -6,6 +6,7 @@ import core.Registration
 import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.html.*
 import kotlinx.html.stream.createHTML
+import kotlin.reflect.jvm.jvmName
 
 class DwarvenPhoneBook(private val mapper: ObjectMapper) : Register {
 
@@ -25,7 +26,7 @@ class DwarvenPhoneBook(private val mapper: ObjectMapper) : Register {
     }
 
     override fun name(): String {
-        return "Dwarf Phone Book"
+        return DwarvenPhoneBook::class.jvmName
     }
 
     private fun dwarfs(): List<Dwarf> {

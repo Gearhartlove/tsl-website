@@ -5,6 +5,7 @@ import core.Register
 import core.Registration
 import kotlinx.html.*
 import kotlinx.html.stream.createHTML
+import kotlin.reflect.jvm.jvmName
 
 class Phonebook : Register {
     companion object {
@@ -87,5 +88,5 @@ class Phonebook : Register {
         }
     )
 
-    override fun name() = "Phonebook"
+    override fun name() = Phonebook::class.jvmName
 }

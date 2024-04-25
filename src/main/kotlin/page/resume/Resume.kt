@@ -5,6 +5,7 @@ import core.Register
 import core.Registration
 import io.javalin.http.ContentType
 import Main
+import kotlin.reflect.jvm.jvmName
 
 class Resume : Register {
     override fun registrations(): List<Registration> {
@@ -20,6 +21,6 @@ class Resume : Register {
     }
 
     override fun name(): String {
-        return "page.resume.Resume"
+        return Resume::class.jvmName
     }
 }

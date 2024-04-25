@@ -3,6 +3,7 @@ package core
 import Main
 import io.javalin.http.ContentType
 import java.io.File
+import kotlin.reflect.jvm.jvmName
 
 @Suppress("NAME_SHADOWING")
 class Core: Register {
@@ -33,6 +34,6 @@ class Core: Register {
     }
 
     override fun name(): String {
-        return "core.Core"
+        return Core::class.jvmName
     }
 }

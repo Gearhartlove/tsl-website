@@ -3,6 +3,7 @@ package page.index
 import core.HttpOptions
 import core.Register
 import core.Registration
+import kotlin.reflect.jvm.jvmName
 
 class Index : Register {
 
@@ -18,7 +19,7 @@ class Index : Register {
     }
 
     override fun name(): String {
-        return "Index"
+        return Index::class.jvmName
     }
 
 }

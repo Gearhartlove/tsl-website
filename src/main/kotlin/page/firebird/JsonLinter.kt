@@ -3,6 +3,7 @@ import core.HttpOptions
 import core.Register
 import core.Registration
 import org.tsl.firebird.Firebird
+import kotlin.reflect.jvm.jvmName
 
 class JsonLinter : Register {
     val firebird = Firebird()
@@ -20,6 +21,6 @@ class JsonLinter : Register {
     }
 
     override fun name(): String {
-        return "JsonLinter"
+        return JsonLinter::class.jvmName
     }
 }
