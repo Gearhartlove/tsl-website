@@ -3,7 +3,6 @@ package page.blog
 import Main
 import kotlinx.html.*
 import kotlinx.html.stream.createHTML
-import page.WrapperV1
 import org.commonmark.parser.Parser as MarkdownParser
 import org.commonmark.renderer.html.HtmlRenderer as MarkdownHtmlRenderer
 

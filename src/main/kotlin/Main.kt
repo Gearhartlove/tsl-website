@@ -1,5 +1,4 @@
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.github.mustachejava.DefaultMustacheFactory
 import core.register
 import page.index.Index
 import io.javalin.Javalin
@@ -12,17 +11,17 @@ import page.resume.Resume
 import org.commonmark.parser.Parser as MarkdownParser
 import org.commonmark.renderer.html.HtmlRenderer as MarkdownHtmlRenderer
 
+@Suppress("unused")
 object Main {
 
     const val STYLES_PATH = "src/main/resources/styles.css"
     const val ASSETS_PATH = "src/main/resources/assets"
-    const val TEMPLATE_PATH = "src/main/resources/templates"
 
-    fun inDebugMode(): Boolean {
+    private fun inDebugMode(): Boolean {
         return System.getenv("DEBUG") == "true"
     }
 
-    fun getPort(): Int {
+    private fun getPort(): Int {
         return System.getenv("PORT").toInt()
     }
 

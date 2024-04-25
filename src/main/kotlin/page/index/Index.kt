@@ -3,9 +3,8 @@ package page.index
 import core.HttpOptions
 import core.Register
 import core.Registration
-import com.github.mustachejava.MustacheFactory
 
-class Index() : Register {
+class Index : Register {
 
     override fun registrations(): List<Registration> {
         return listOf(
