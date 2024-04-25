@@ -5,9 +5,7 @@ import core.Register
 import core.Registration
 import com.github.mustachejava.MustacheFactory
 
-class Index(mf: MustacheFactory) : Register {
-
-    private val page: Page = Page()
+class Index() : Register {
 
     override fun registrations(): List<Registration> {
         return listOf(
@@ -15,7 +13,7 @@ class Index(mf: MustacheFactory) : Register {
                 HttpOptions.GET,
                 "/",
             ) { ctx ->
-                ctx.html(page.html)
+                ctx.html(Page.html)
             }
         )
     }

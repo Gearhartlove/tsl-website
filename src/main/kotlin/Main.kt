@@ -30,11 +30,10 @@ object Main {
         val mdParser = MarkdownParser.builder().build()
         val mdHtmlRenderer = MarkdownHtmlRenderer.builder().build()
         val mapper = jacksonObjectMapper {}
-        val mf = DefaultMustacheFactory()
 
         val core = Core()
-        val blogger = Blogger(mf, mdParser, mdHtmlRenderer)
-        val index = Index(mf)
+        val blogger = Blogger(mdParser, mdHtmlRenderer)
+        val index = Index()
         val phonebook = Phonebook()
         val jsonLinter = JsonLinter()
         val resume = Resume()

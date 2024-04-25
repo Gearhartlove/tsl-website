@@ -4,8 +4,8 @@ import kotlinx.html.*
 import kotlinx.html.stream.createHTML
 
 
-class Page {
-    private val head = createHTML().head {
+object Page {
+    val head = createHTML().head {
         meta { charset = "UTF-16" }
         title { +"Two Shots Later" }
         script { src = "https://unpkg.com/htmx.org@1.9.10" }
@@ -20,7 +20,7 @@ class Page {
         }
     }
 
-    private val navDiv = createHTML().div {
+    val navDiv = createHTML().div {
         id = "navDiv"
         classes = setOf("container", "nav")
 

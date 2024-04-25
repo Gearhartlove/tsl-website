@@ -1,60 +1,29 @@
 package page.blog
 
-import Main
 import core.HttpOptions
 import core.Register
 import core.Registration
-import Main.TEMPLATE_PATH
-import com.github.mustachejava.DefaultMustacheFactory
-import Main.inDebugMode
 import io.javalin.http.ContentType
 import io.javalin.http.Context
-import mustache.MustacheUtil
+import page.WrapperV1
 import java.io.File
 import org.commonmark.parser.Parser as MarkdownParser
 import org.commonmark.renderer.html.HtmlRenderer as MarkdownHtmlRenderer
 
 class Blogger(
-    mf: DefaultMustacheFactory,
-    mdParser: MarkdownParser,
-    mdHtmlRenderer: MarkdownHtmlRenderer,
+    val mdParser: MarkdownParser,
+    val mdHtmlRenderer: MarkdownHtmlRenderer,
 ) : Register {
-    companion object {
-        val BLOG_ENTRIES_PATH = "src/main/resources/blog/entries"
-        val BLOG_RENDERS_PATH = "src/main/resources/blog/renders"
-    }
 
-    init {
-        blog("creating-my-website-from-chicken-scratch", mdParser, mdHtmlRenderer, mf)
-        blog("im-trapped-in-my-html-how-do-i-escape", mdParser, mdHtmlRenderer, mf)
-        blog("back  enders-spellbook-my-response-to-your-request", mdParser, mdHtmlRenderer, mf)
+    val blogTitles = mutableListOf(
+        BlogTitle("creating-my-website-from-chicken-scratch", "Creating my website from chicken scratch"),
+        BlogTitle("im-trapped-in-my-html-how-do-i-escape", "I'm trapped in my HTML, how do I escape?"),
+        BlogTitle("backenders-spellbook-my-response-to-your-request", "Backender's Spellbook : my response to your request")
+    )
 
-        if (inDebugMode()) {
-            blog("pilot", mdParser, mdHtmlRenderer, mf)
-        }
-    }
+    private fun entries() = WrapperV1.wrap(Page.entries(blogTitles))
 
-    fun blog(blog: String, mdParser: MarkdownParser, mdHtmlRenderer: MarkdownHtmlRenderer, mustacheFactory: DefaultMustacheFactory): Unit {
-        val parsed = mdParser.parse(Main::class.java.getResource("blog/entries/$blog.md").readText())
-        val rendered = mdHtmlRenderer.render(parsed)
-        val scopes = mapOf("content" to rendered)
-        val renderPath = "$BLOG_RENDERS_PATH/$blog.html"
-        val templatePath = "$TEMPLATE_PATH/navMain.mustache"
-        val name = "blogger/entries/$blog"
-        MustacheUtil.render(scopes, renderPath, templatePath, mustacheFactory, name)
-    }
-
-    fun entries(): String {
-        val path = "$BLOG_RENDERS_PATH/entries.html"
-        val file = File(path)
-        return file.readText()
-    }
-
-    fun get(id: String): String {
-        val path = "$BLOG_RENDERS_PATH/$id.html"
-        val file = File(path)
-        return file.readText()
-    }
+    private fun blog(blog: String): String = WrapperV1.wrap(Page.blog(blog, mdParser, mdHtmlRenderer))
 
     override fun registrations(): List<Registration> {
         return listOf(
@@ -88,7 +57,7 @@ class Blogger(
                 "/blogger/{id}",
             ) { ctx ->
                 val id = ctx.pathParam("id")
-                val html = get(id)
+                val html = blog(id)
                 ctx.html(html)
             }
         )
