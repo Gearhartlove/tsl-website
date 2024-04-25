@@ -34,7 +34,7 @@ object Page {
     }
 
     fun blog(blog: String, mdParser: MarkdownParser, mdHtmlRenderer: MarkdownHtmlRenderer): String {
-        val readText = Main::class.java.getResource("blog/entries/$blog.md").readText()
+        val readText = Main::class.java.getResource("blog/$blog.md").readText()
         val parsed = mdParser.parse(readText)
         val renderedHTML = mdHtmlRenderer.render(parsed)
 
