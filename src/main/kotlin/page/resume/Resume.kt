@@ -14,8 +14,7 @@ class Resume : Register {
                 HttpOptions.GET,
                 "/resume",
             ) { ctx ->
-                ctx.contentType(ContentType.APPLICATION_PDF)
-                    .result(Main::class.java.getResource("assets/Resume-Kristoff-Finley.pdf").readBytes())
+                ctx.redirect("/assets/pdf/Resume-Kristoff-Finley.pdf")
             }
         )
     }

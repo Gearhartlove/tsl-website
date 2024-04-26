@@ -33,7 +33,7 @@ object Page {
         classes = setOf("squish")
         id = "content"
         img {
-            src = "/assets/alpine_adventure.jpg"
+            src = "/assets/jpg/alpine_adventure.jpg"
             alt = "skiing picture"
         }
         p {

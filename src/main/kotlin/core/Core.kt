@@ -6,7 +6,7 @@ import java.io.File
 import kotlin.reflect.jvm.jvmName
 
 @Suppress("NAME_SHADOWING")
-class Core: Register {
+class Core : Register {
     override fun registrations(): List<Registration> {
         return listOf(
             Registration(
@@ -19,15 +19,23 @@ class Core: Register {
             },
             Registration(
                 HttpOptions.GET,
-                "/assets/{asset}",
+                "/assets/{extension}/{assetName}",
             ) { ctx ->
-                val asset = ctx.pathParam("asset")
-                try {
-                    val asset = File("${Main.ASSETS_PATH}/$asset").readBytes()
-                    ctx.contentType(ContentType.IMAGE_JPEG)
-                    ctx.result(asset)
-                } catch (e: Exception) {
-                    ctx.status(404).result("Picture not found $asset")
+                val extension = ctx.pathParam("extension")
+                val assetName = ctx.pathParam("assetName")
+
+                val asset = Main::class.java.getResource("/assets/$assetName")?.readBytes()
+
+                if (asset == null) {
+                    ctx.status(404).result("Asset not found $asset")
+                } else {
+                    val contentTypeMatch = ContentType.entries.filter { entry ->
+                        entry.extensions.contains(extension)
+                    }
+
+                    assert(contentTypeMatch.count() == 1, { "Found multiple assets. There should only be one." })
+
+                    ctx.contentType(contentTypeMatch.first()).result(asset)
                 }
             }
         )
