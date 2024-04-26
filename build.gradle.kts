@@ -12,6 +12,7 @@ repositories {
 
 dependencies {
     implementation(files("custom/firebird-1.0.jar"))
+    implementation(files("custom/square-0.1.0-SNAPSHOT-standalone.jar"))
     implementation("io.javalin:javalin:6.0.0")
     implementation("io.javalin.community.ssl:ssl-plugin:6.0.0")
     implementation("org.slf4j:slf4j-simple:2.0.11")

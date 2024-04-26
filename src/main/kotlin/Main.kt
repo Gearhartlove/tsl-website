@@ -9,6 +9,7 @@ import page.firebird.JsonLinter
 import page.blog.Blogger
 import page.phonebook.Phonebook
 import page.resume.Resume
+import page.square.Square
 import org.commonmark.parser.Parser as MarkdownParser
 import org.commonmark.renderer.html.HtmlRenderer as MarkdownHtmlRenderer
 
@@ -37,6 +38,7 @@ object Main {
         val phonebook = Phonebook()
         val jsonLinter = JsonLinter()
         val resume = Resume()
+        val square = Square()
 
         val app = Javalin.create { javalinConfig ->
             if (!inDebugMode()) {
@@ -57,6 +59,7 @@ object Main {
             .register(phonebook)
             .register(jsonLinter)
             .register(resume)
+            .register(square)
             .start(getPort())
     }
 }
