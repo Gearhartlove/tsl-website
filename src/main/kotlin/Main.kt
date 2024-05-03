@@ -7,6 +7,7 @@ import io.javalin.community.ssl.SslPlugin
 import io.javalin.http.staticfiles.Location
 import page.firebird.JsonLinter
 import page.blog.Blogger
+import page.frisco.Frisco
 import page.phonebook.Phonebook
 import page.resume.Resume
 import page.square.Square
@@ -39,6 +40,7 @@ object Main {
         val jsonLinter = JsonLinter()
         val resume = Resume()
         val square = Square()
+        val frisco = Frisco()
 
         val app = Javalin.create { javalinConfig ->
             if (!inDebugMode()) {
@@ -60,6 +62,7 @@ object Main {
             .register(jsonLinter)
             .register(resume)
             .register(square)
+            .register(frisco)
             .start(getPort())
     }
 }
