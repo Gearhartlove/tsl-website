@@ -26,6 +26,15 @@ object Page {
                             href = "/blogger/${title.internalTitle}"
                             +title.publicTitle
                         }
+                        if (title.month != null && title.year != null && title.day != null) {
+                            p {
+                                style = "font-size:10px;"
+                                em {
+
+                                    +"${title.month} ${title.day}, ${title.year}"
+                                }
+                            }
+                        }
                     }
                 }
             }
