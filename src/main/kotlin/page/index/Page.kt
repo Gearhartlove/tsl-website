@@ -8,7 +8,7 @@ object Page {
     val head = createHTML().head {
         meta { charset = "UTF-16" }
         title { +"Two Shots Later" }
-        script { src = "https://unpkg.com/htmx.org@1.9.10" }
+        script { src = "https://unpkg.com/htmx.org@1.9.12" }
         link {
             rel = "stylesheet"
             type = "text/css"
