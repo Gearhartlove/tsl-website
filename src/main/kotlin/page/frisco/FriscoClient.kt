@@ -5,6 +5,7 @@ import core.HttpOptions
 import core.Register
 import core.Registration
 import kotlinx.coroutines.runBlocking
+import page.WrapperV1
 import kotlin.reflect.jvm.jvmName
 
 class FriscoClient(val cueClient: CueClient): Register {
@@ -16,6 +17,12 @@ class FriscoClient(val cueClient: CueClient): Register {
                 "/frisco"
             ) { ctx ->
                 ctx.html(Page.getCardDesigner())
+            },
+            Registration(
+                HttpOptions.GET,
+                "/frisco2"
+            ) { ctx ->
+                ctx.html(WrapperV1.wrap(Page.getCardDesignerV2()))
             },
             Registration(HttpOptions.GET, "/frisco/validate") { ctx ->
                 FriscoCore.validate()

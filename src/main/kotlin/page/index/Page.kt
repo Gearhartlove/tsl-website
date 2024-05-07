@@ -53,5 +53,3 @@ object Page {
         $content
     """.trimIndent()
 }
-
-//
