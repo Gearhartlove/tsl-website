@@ -1,0 +1,66 @@
+### validation 1
+
+< {%
+    const cueConfig = `
+#goblin: {
+    weapon!: string
+    rarity: *"common" | "uncommon" | "rare"
+}
+
+gut: #goblin & {
+    weapon: "sword"
+}
+`
+    request.variables.set("cueConfig", encodeURI(cueConfig))
+
+%}
+
+GET http://localhost:{{port}}/frisco/validate?config={{cueConfig}}
+
+### validation 2
+
+< {%
+    const cueConfig = `
+#goblin: {
+    weapon!: string
+    rarity: *"common" | "uncommon" | "rare"
+}
+
+gut: #goblin & {
+    weapon: "sword"
+}
+
+wart: #goblin & {
+    weapon: "staff"
+}
+`
+    request.variables.set("cueConfig", encodeURI(cueConfig))
+
+%}
+
+GET http://localhost:{{port}}/frisco/validate?config={{cueConfig}}
+
+### validation 3 - PLEASE FAIL
+
+< {%
+    const cueConfig = `
+#goblin: {
+    weapon!: string
+    name!: string
+    rarity: *"common" | "uncommon" | "rare"
+}
+
+gut: #goblin & {
+    weapon: "sword"
+    name: "gut"
+}
+
+wart: #goblin & {
+    weapon: "staff"
+}
+`
+    request.variables.set("cueConfig", encodeURI(cueConfig))
+
+%}
+
+GET http://localhost:{{port}}/frisco/validate?config={{cueConfig}}

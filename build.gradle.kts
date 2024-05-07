@@ -10,17 +10,21 @@ repositories {
     mavenCentral()
 }
 
+val ktorVersion: String = "2.3.10"
+
 dependencies {
     implementation(files("custom/firebird-1.0.jar"))
     implementation(files("custom/square-0.1.0-SNAPSHOT-standalone.jar"))
-    implementation("io.javalin:javalin:6.0.0")
-    implementation("io.javalin.community.ssl:ssl-plugin:6.0.0")
+    implementation("io.javalin:javalin:6.1.3")
+    implementation("io.javalin.community.ssl:ssl-plugin:6.1.3")
     implementation("org.slf4j:slf4j-simple:2.0.11")
     implementation("org.commonmark:commonmark:0.21.0")
     implementation(kotlin("script-runtime"))
     implementation("com.github.spullara.mustache.java:compiler:0.9.10")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.0-rc1")
     implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.8.0")
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
 }
 
 tasks.test {
@@ -43,7 +47,8 @@ tasks.register<JavaExec>("runLocal") {
     classpath = sourceSets["main"].runtimeClasspath
     environment(
         Pair("DEBUG", "true"),
-        Pair("PORT", 1025)
+        Pair("PORT", 1025),
+        Pair("CUE-PORT", "49153")
     )
 }
 
@@ -55,6 +60,7 @@ tasks.register<JavaExec>("runServer") {
     classpath = sourceSets["main"].runtimeClasspath
     environment(
         Pair("DEBUG", "false"),
-        Pair("PORT", 443)
+        Pair("PORT", 443),
+        Pair("CUE-PORT", "49153")
     )
 }

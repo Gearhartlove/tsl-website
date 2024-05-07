@@ -7,7 +7,7 @@ import io.javalin.community.ssl.SslPlugin
 import io.javalin.http.staticfiles.Location
 import page.firebird.JsonLinter
 import page.blog.Blogger
-import page.frisco.Frisco
+import page.frisco.FriscoClient
 import page.phonebook.Phonebook
 import page.resume.Resume
 import page.square.Square
@@ -29,10 +29,15 @@ object Main {
     }
 
     fun run() {
+        // misc resources
         val mdParser = MarkdownParser.builder().build()
         val mdHtmlRenderer = MarkdownHtmlRenderer.builder().build()
         val mapper = jacksonObjectMapper {}
 
+        // clients
+        val cueClient = CueClient()
+
+        // pages
         val core = Core()
         val blogger = Blogger(mdParser, mdHtmlRenderer)
         val index = Index()
@@ -40,7 +45,7 @@ object Main {
         val jsonLinter = JsonLinter()
         val resume = Resume()
         val square = Square()
-        val frisco = Frisco()
+        val friscoClient = FriscoClient(cueClient)
 
         val app = Javalin.create { javalinConfig ->
             if (!inDebugMode()) {
@@ -62,7 +67,7 @@ object Main {
             .register(jsonLinter)
             .register(resume)
             .register(square)
-            .register(frisco)
+            .register(friscoClient)
             .start(getPort())
     }
 }
