@@ -20,7 +20,8 @@ class Blogger(
         BlogTitle("creating-my-website-from-chicken-scratch", "Creating my website from chicken scratch"),
         BlogTitle("im-trapped-in-my-html-how-do-i-escape", "I'm trapped in my HTML, how do I escape?"),
         BlogTitle("backenders-spellbook-my-response-to-your-request", "Backender's Spellbook : my response to your request"),
-        BlogTitle("java-exceptions", "Java Exceptions", Month.MAY, 3, 2024)
+        BlogTitle("java-exceptions", "Java Exceptions", Month.MAY, 3, 2024),
+        BlogTitle("a-magical-elixir", "A Magical Elixir", Month.SEPTEMBER, 8, 2024)
     )
 
     private fun entries() = WrapperV1.wrap(Page.entries(blogTitles))
